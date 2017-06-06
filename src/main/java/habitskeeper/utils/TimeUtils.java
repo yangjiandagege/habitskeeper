@@ -56,6 +56,20 @@ public class TimeUtils {
 		return sdf1.format(new Date());
 	}
 	
+	/**
+	 * 获得某个月最大天数
+	 * 
+	 * @param year 年份
+	 * @param month 月份 (1-12)
+	 * @return 某个月最大天数
+	 */
+	public static int getMaxDayByYearMonth(int year, int month) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, year - 1);
+		calendar.set(Calendar.MONTH, month);
+		return calendar.getActualMaximum(Calendar.DATE);
+	}
+	
 	public static String getTimeSN() {
 		String[] ops = new String[]{"SSS", "mm", "ss", "dd", "HH"};
 		String pattn = "yy";
@@ -501,10 +515,4 @@ public class TimeUtils {
         return months;  
     }  
 	
-	public static void main(String[] args) throws Exception{
-		for(int i=0; i<20; i++) {
-			System.out.println(TimeUtils.getTimeSN());
-			
-		}
-	}
 }

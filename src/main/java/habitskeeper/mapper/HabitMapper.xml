@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="habitskeeper.dao.PlayerMapper">
+
+  <insert id="addUser" parameterType="habitskeeper.pojo.User" >
+    replace into user (
+    	userId, 
+    	avatarUrl, 
+    	nickName, 
+    	gender, 
+    	language, 
+    	country, 
+    	province, 
+    	city,
+    	createTime
+    )
+    values (
+    	#{userId}, 
+    	#{avatarUrl}, 
+    	#{nickName},
+    	#{gender},
+    	#{language},
+    	#{country},
+    	#{province},
+    	#{city},
+    	#{createTime}
+    )
+  </insert>
+  
+  <insert id="addHabit" parameterType="habitskeeper.pojo.Habit" >
+    insert into habit (
+    	userId, 
+    	habitName, 
+    	startDate, 
+    	endDate, 
+    	targetPercent, 
+    	curMonthPercent, 
+    	isCompleteToday, 
+    	createTime
+    )
+    values (
+    	#{userId}, 
+    	#{habitName}, 
+    	#{startDate},
+    	#{endDate},
+    	#{targetPercent},
+    	#{curMonthPercent},
+    	#{isCompleteToday},
+    	#{createTime}
+    )
+  </insert>
+  
+  <update id="updateCurHabitMonthPercent" parameterType="habitskeeper.pojo.Habit" >
+	    update habit set 
+		     <if test="isCompleteToday != null">
+               isCompleteToday= #{isCompleteToday}
+            </if>
+	    <where>
+			habitId = #{habitId}
+		</where>
+  </update>
+  
+  <select id="getHabitList" parameterType="java.lang.String" resultType="habitskeeper.pojo.Habit">
+  	select * from user where userId=#{userId}
+  </select>
+  
+    
+  <insert id="addHabitDayRecord" parameterType="habitskeeper.pojo.DayRecord" >
+    insert into day_record (
+    	habitId, 
+    	date, 
+    	isComplete, 
+    	remark, 
+    	createTime
+    )
+    values (
+    	#{habitId}, 
+    	#{date}, 
+    	#{isComplete},
+    	#{remark},
+    	#{createTime}
+    )
+  </insert>
+  
+</mapper>
