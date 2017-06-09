@@ -13,6 +13,10 @@ public interface HabitService {
 	ReturnPojo getHabitList(String userId);
 
 	ReturnPojo addHabitDayRecord(DayRecord dayRecord);
+
+	ReturnPojo getHabitById(Integer habitId);
+
+	ReturnPojo getDayRecordListInMonth(Integer habitId, String yearmonth);
 }
 
 

@@ -35,6 +35,11 @@ public class TimeUtils {
 		return df.format(new Date());
 	}
 	
+	public static String getCurrDate(){
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+		return sdf.format(new Date());
+	}
+	
 	public static String getTimeString(String time) {
 		try {
 			return df.format(sdf.parse(time));
@@ -69,6 +74,26 @@ public class TimeUtils {
 		calendar.set(Calendar.MONTH, month);
 		return calendar.getActualMaximum(Calendar.DATE);
 	}
+	
+    public static String convertTimeFormat(String time, String formatSrc, String formatDes) {
+        if (formatSrc == null) {
+            formatSrc = "yyyyMMddHHmmssSSS";
+        }
+        if (formatDes == null) {
+            formatDes = "yy/MM/dd HH:mm:ss";
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat(formatSrc);
+        String timeDes = null;
+        try {
+            Long lo = sdf.parse(time).getTime();
+            SimpleDateFormat dateFormat = new SimpleDateFormat(formatDes);
+            timeDes = dateFormat.format(lo);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return timeDes;
+    }
 	
 	public static String getTimeSN() {
 		String[] ops = new String[]{"SSS", "mm", "ss", "dd", "HH"};

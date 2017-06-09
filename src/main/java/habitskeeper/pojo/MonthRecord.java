@@ -8,8 +8,8 @@ public class MonthRecord implements Serializable{
     private Integer monthRecordId;
     private Integer	habitId;
     private String	yearMonth;
-    private Long	monthPercent;
-    private Long 	targetPercent;
+    private Double	monthPercent;
+    private Double 	targetPercent;
     private String	startDate;
     private String	endDate;
     private String 	createTime;
@@ -25,16 +25,16 @@ public class MonthRecord implements Serializable{
 	public void setYearMonth(String yearMonth) {
 		this.yearMonth = yearMonth;
 	}
-	public Long getMonthPercent() {
+	public Double getMonthPercent() {
 		return monthPercent;
 	}
-	public void setMonthPercent(Long monthPercent) {
+	public void setMonthPercent(Double monthPercent) {
 		this.monthPercent = monthPercent;
 	}
-	public Long getTargetPercent() {
+	public Double getTargetPercent() {
 		return targetPercent;
 	}
-	public void setTargetPercent(Long targetPercent) {
+	public void setTargetPercent(Double targetPercent) {
 		this.targetPercent = targetPercent;
 	}
 	public Integer getHabitId() {

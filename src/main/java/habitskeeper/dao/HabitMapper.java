@@ -19,6 +19,12 @@ public interface HabitMapper {
 
 	List<DayRecord> getCompleteDayInMonth(@Param("habitId")Integer habitId, @Param("yearMonth")String yearMonth);
 
-	Integer updateCurHabitMonthPercent(Integer habitId, Long curPercent);
+	Integer updateHabit(Habit habit);
+
+	DayRecord getHabitDayRecordInDay(@Param("habitId")Integer habitId, @Param("date")String date);
+
+	Habit getHabitById(@Param("habitId")Integer habitId);
+
+	List<DayRecord> getDayRecordListInMonth(@Param("habitId")Integer habitId, @Param("yearMonth")String yearMonth);
 	
 }

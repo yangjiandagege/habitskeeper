@@ -9,10 +9,10 @@ public class Habit implements Serializable{
 	private String 	userId;
 	private String 	habitName;
 	private String 	startDate;
-	private String	endDate;
-	private Long 	targetPercent;
-	private Long 	curMonthPercent;
-	private Integer isCompleteToday;
+	private String	lastEditDate;
+	private Integer	lastCompleteState;
+	private Double 	targetPercent;
+	private Double 	curMonthPercent;
 	private String 	createTime;
 	public Integer getHabitId() {
 		return habitId;
@@ -38,29 +38,29 @@ public class Habit implements Serializable{
 	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
-	public String getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-	public Long getTargetPercent() {
+	public Double getTargetPercent() {
 		return targetPercent;
 	}
-	public void setTargetPercent(Long targetPercent) {
+	public void setTargetPercent(Double targetPercent) {
 		this.targetPercent = targetPercent;
 	}
-	public Long getCurMonthPercent() {
+	public Double getCurMonthPercent() {
 		return curMonthPercent;
 	}
-	public void setCurMonthPercent(Long curMonthPercent) {
+	public void setCurMonthPercent(Double curMonthPercent) {
 		this.curMonthPercent = curMonthPercent;
 	}
-	public Integer getIsCompleteToday() {
-		return isCompleteToday;
+	public String getLastEditDate() {
+		return lastEditDate;
 	}
-	public void setIsCompleteToday(Integer isCompleteToday) {
-		this.isCompleteToday = isCompleteToday;
+	public void setLastEditDate(String lastEditDate) {
+		this.lastEditDate = lastEditDate;
+	}
+	public Integer getLastCompleteState() {
+		return lastCompleteState;
+	}
+	public void setLastCompleteState(Integer lastCompleteState) {
+		this.lastCompleteState = lastCompleteState;
 	}
 	public String getCreateTime() {
 		return createTime;

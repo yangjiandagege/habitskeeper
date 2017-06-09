@@ -54,10 +54,10 @@ public class HabitController extends BaseController{
     	if(null != habit
     			&& null != habit.getUserId()
     			&& null != habit.getHabitName()
-    			&& null != habit.getStartDate()
-    			&& null != habit.getEndDate()
     			&& null != habit.getTargetPercent()){
+    		habit.setStartDate(TimeUtils.getCurrDate());
     		habit.setCreateTime(TimeUtils.getCurrTime());
+    		habit.setCurMonthPercent(Double.valueOf(0));
     		rp = this.habitService.addHabit(habit);
     	}else{
 			rp.setReturnCode("201");
@@ -98,4 +98,30 @@ public class HabitController extends BaseController{
         writeJsonToResponse(response, JSONObject.toJSON(rp).toString());
     }
     
+    @RequestMapping("/gethabitbyid")
+    public void getHabitById(Integer habitId, HttpServletRequest request, HttpServletResponse response) {
+    	ReturnPojo rp = new ReturnPojo();
+    	if(null != habitId){
+    		rp = this.habitService.getHabitById(habitId);
+    	}else{
+			rp.setReturnCode("201");
+			rp.setReturnMsg("参数异常！");
+			rp.setResult("fail");
+    	}
+        writeJsonToResponse(response, JSONObject.toJSON(rp).toString());
+    }
+    
+    @RequestMapping("/getdayrecordlistinmonth")
+    public void getDayRecordListInMonth(Integer habitId, String yearmonth, HttpServletRequest request, HttpServletResponse response) {
+    	ReturnPojo rp = new ReturnPojo();
+    	if(null != habitId
+    			&& null != yearmonth){
+    		rp = this.habitService.getDayRecordListInMonth(habitId, yearmonth);
+    	}else{
+			rp.setReturnCode("201");
+			rp.setReturnMsg("参数异常！");
+			rp.setResult("fail");
+    	}
+        writeJsonToResponse(response, JSONObject.toJSON(rp).toString());
+    }
 }

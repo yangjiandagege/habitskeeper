@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="habitskeeper.dao.PlayerMapper">
+<mapper namespace="habitskeeper.dao.HabitMapper">
 
   <insert id="addUser" parameterType="habitskeeper.pojo.User" >
     replace into user (
@@ -33,39 +33,72 @@
     	userId, 
     	habitName, 
     	startDate, 
-    	endDate, 
+    	lastEditDate, 
     	targetPercent, 
     	curMonthPercent, 
-    	isCompleteToday, 
+    	lastCompleteState, 
     	createTime
     )
     values (
     	#{userId}, 
     	#{habitName}, 
     	#{startDate},
-    	#{endDate},
+    	#{lastEditDate},
     	#{targetPercent},
     	#{curMonthPercent},
-    	#{isCompleteToday},
+    	#{lastCompleteState},
     	#{createTime}
     )
   </insert>
   
-  <update id="updateCurHabitMonthPercent" parameterType="habitskeeper.pojo.Habit" >
+  <update id="updateHabit" parameterType="habitskeeper.pojo.Habit">
 	    update habit set 
-		     <if test="isCompleteToday != null">
-               isCompleteToday= #{isCompleteToday}
+		    <if test="userId != null">
+               userId=#{userId},
+            </if>
+            <if test="habitName != null">
+               habitName=#{habitName},
+            </if>
+            <if test="startDate != null">
+               startDate=#{startDate},
+            </if>
+            <if test="lastEditDate != null">
+               lastEditDate=#{lastEditDate},
+            </if>
+            <if test="targetPercent != null">
+               targetPercent=#{targetPercent},
+            </if>
+            <if test="curMonthPercent != null">
+               curMonthPercent=#{curMonthPercent},
+            </if>
+            <if test="lastCompleteState != null">
+               lastCompleteState=#{lastCompleteState}
             </if>
 	    <where>
 			habitId = #{habitId}
 		</where>
   </update>
-  
-  <select id="getHabitList" parameterType="java.lang.String" resultType="habitskeeper.pojo.Habit">
-  	select * from user where userId=#{userId}
+      
+  <select id="getHabitById" resultType="habitskeeper.pojo.Habit">
+  	select * from habit where habitId=#{habitId}
   </select>
   
+  <select id="getHabitList" parameterType="java.lang.String" resultType="habitskeeper.pojo.Habit">
+  	select * from habit where userId=#{userId}
+  </select>
+  
+  <select id="getHabitDayRecordInDay" resultType="habitskeeper.pojo.DayRecord">
+  	select * from day_record where habitId=#{habitId} and date=#{date}
+  </select>
     
+  <select id="getDayRecordListInMonth" resultType="habitskeeper.pojo.DayRecord">
+  	select * from day_record where habitId=#{habitId} and date LIKE CONCAT('%',#{yearMonth},'%')
+  </select>
+  
+  <select id="getCompleteDayInMonth" resultType="habitskeeper.pojo.DayRecord">
+  	select * from day_record where habitId=#{habitId} and date LIKE CONCAT('%',#{yearMonth},'%') and isComplete=1
+  </select>
+  
   <insert id="addHabitDayRecord" parameterType="habitskeeper.pojo.DayRecord" >
     insert into day_record (
     	habitId, 
@@ -82,5 +115,4 @@
     	#{createTime}
     )
   </insert>
-  
 </mapper>
