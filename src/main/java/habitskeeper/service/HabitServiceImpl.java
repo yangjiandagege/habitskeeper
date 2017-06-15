@@ -89,7 +89,7 @@ public class HabitServiceImpl implements HabitService{
 			d1 = df.parse(dayRecord.getDate());
 			if(d1.getTime() > curDate.getTime()){
 				rp.setReturnCode(RETURN_CODE_OPERATE_IS_NOT_ALLOW);
-				rp.setReturnMsg("对不起，该操作不被允许操作！");
+				rp.setReturnMsg("对不起，该操作不被允许！");
 				return rp;
 			}
 	
@@ -166,7 +166,7 @@ public class HabitServiceImpl implements HabitService{
 	public ReturnPojo getDayRecordListInMonth(Integer habitId, String yearmonth) {
 		ReturnPojo rp = new ReturnPojo();
 		List<DayRecord> dayRecordList = habitMapper.getDayRecordListInMonth(habitId, yearmonth);
-
+		List<DayRecord> dayRecordListComplete = habitMapper.getCompleteDayInMonth(habitId, yearmonth);
 		if(dayRecordList != null && dayRecordList.size() > 0){
 			rp.setReturnCode(RETURN_CODE_SUCCESS);
 			int year = Integer.valueOf(TimeUtils.convertTimeFormat(yearmonth, "yyyy-MM", "yyyy"));
@@ -174,7 +174,7 @@ public class HabitServiceImpl implements HabitService{
 			
 			//根据year、month来获取改月份最大天数
 			int maxDayInMonth = TimeUtils.getMaxDayByYearMonth(year, month);
-			Double curPercent = (double)dayRecordList.size()/(double)maxDayInMonth;
+			Double curPercent = (double)dayRecordListComplete.size()/(double)maxDayInMonth;
 			logger.info("curPercent = "+curPercent);
 			rp.setReturnMsg(""+Math.round(curPercent*100));
 			logger.info("returnMsg = "+Math.round(curPercent*100));
