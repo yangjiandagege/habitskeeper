@@ -68,11 +68,11 @@
             <if test="targetPercent != null">
                targetPercent=#{targetPercent},
             </if>
-            <if test="curMonthPercent != null">
-               curMonthPercent=#{curMonthPercent},
-            </if>
             <if test="lastCompleteState != null">
-               lastCompleteState=#{lastCompleteState}
+               lastCompleteState=#{lastCompleteState},
+            </if>
+            <if test="curMonthPercent != null">
+               curMonthPercent=#{curMonthPercent}
             </if>
 	    <where>
 			habitId = #{habitId}

@@ -40,6 +40,11 @@ public class TimeUtils {
 		return sdf.format(new Date());
 	}
 	
+	public static String getCurrYearMonth(){
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM");
+		return sdf.format(new Date());
+	}
+	
 	public static String getTimeString(String time) {
 		try {
 			return df.format(sdf.parse(time));
