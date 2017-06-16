@@ -82,12 +82,19 @@ public class HabitServiceImpl implements HabitService{
 
 		try {
 			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			Date curDate = new Date();
-			Date d1;
-			Date d2;
+			Date curDate = df.parse(TimeUtils.getCurrDate());
+			Date paraDate = df.parse(dayRecord.getDate());
+			Date lastDate;
 			
-			d1 = df.parse(dayRecord.getDate());
-			if(d1.getTime() > curDate.getTime()){
+			Habit myHabit = habitMapper.getHabitById(dayRecord.getHabitId());
+			if(myHabit.getLastEditDate() != null){
+				lastDate = df.parse(myHabit.getLastEditDate());
+			}else{
+				lastDate = curDate;
+			}
+			logger.info("curDate = "+curDate.getTime() + " paraDate = "+paraDate.getTime() + " lastDate = "+lastDate.getTime());
+			
+			if(paraDate.getTime() > curDate.getTime()){
 				rp.setReturnCode(RETURN_CODE_OPERATE_IS_NOT_ALLOW);
 				rp.setReturnMsg("对不起，该操作不被允许！");
 				return rp;
@@ -121,14 +128,7 @@ public class HabitServiceImpl implements HabitService{
 					habitMapper.updateHabit(habit);
 				}
 				
-				Habit myHabit = habitMapper.getHabitById(dayRecord.getHabitId());
-				if(myHabit.getLastEditDate() != null){
-					d2 = df.parse(myHabit.getLastEditDate());
-				}else{
-					d2 = curDate;
-				}
-				logger.info("d2.getTime() = "+d2.getTime() + " d1.getTime() = "+d1.getTime());
-				if(d2.getTime() <= d1.getTime()){
+				if(lastDate.getTime() <= paraDate.getTime()){
 					habit.setLastCompleteState(dayRecord.getIsComplete());  //修改当前完成状态
 					habit.setLastEditDate(dayRecord.getDate());  //修改最近完成日期
 					habitMapper.updateHabit(habit);
